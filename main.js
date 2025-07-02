@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-// import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
+// import { GLTFLoader } from './jsm/loaders/GLTFLoader.js'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -15,20 +16,20 @@ renderer.setAnimationLoop(animate);
 document.body.appendChild(renderer.domElement);
 
 // // Use a sphere as a placeholder for the bunny
-const geometry = new THREE.SphereGeometry(0.5, 32, 32);
-const material = new THREE.MeshStandardMaterial({ color: 0xffccaa });
-const bunny = new THREE.Mesh(geometry, material);
-scene.add(bunny);
-// const loader = new GLTFLoader();
-// let bunny;
+// const geometry = new THREE.SphereGeometry(0.5, 32, 32);
+// const material = new THREE.MeshStandardMaterial({ color: 0xffccaa });
+// const bunny = new THREE.Mesh(geometry, material);
+// scene.add(bunny);
+const loader = new GLTFLoader();
+let bunny;
 
-// loader.load('/bunny1.glb', (gltf) => {
-//   bunny = gltf.scene;
-//   bunny.scale.set(0.5, 0.5, 0.5); // adjust scale as needed
-//   scene.add(bunny);
-// }, undefined, (error) => {
-//   console.error('Error loading bunny:', error);
-// });
+loader.load('public/bunny1.glb', (gltf) => {
+  bunny = gltf.scene;
+  bunny.scale.set(0.5, 0.5, 0.5); // adjust scale as needed
+  scene.add(bunny);
+}, undefined, (error) => {
+  console.error('Error loading bunny:', error);
+});
 
 
 // Lighting
@@ -79,7 +80,7 @@ function animate() {
   const hopHeight = 0.2;
   const hopSpeed = 0.2;
 
-//   if (!bunny) return; // Ensure bunny is loaded before animating
+  if (!bunny) return; // Ensure bunny is loaded before animating
 
   if (moveDirection.x !== 0 || moveDirection.z !== 0) {
     // Hop motion
